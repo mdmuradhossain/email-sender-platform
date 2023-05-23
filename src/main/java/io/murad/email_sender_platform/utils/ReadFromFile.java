@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadFromFile {
-
     public String sendEmailsFromCSV(String csvFilePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));
         String line;
