@@ -12,7 +12,8 @@ import java.nio.file.StandardCopyOption;
 @Component
 public class UploadEmailFile {
 
-    public void uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file) throws IOException {
+        String filePath = "";
         Path uploadPath = Paths.get("uploads/");
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -20,11 +21,13 @@ public class UploadEmailFile {
         }
 
         try (InputStream inputStream = file.getInputStream()) {
-            Path imagePath = uploadPath.resolve(file.getOriginalFilename());
-            System.out.println(imagePath.toFile().getAbsolutePath());
-            Files.copy(inputStream, imagePath, StandardCopyOption.REPLACE_EXISTING);
+            Path emailsFilePath = uploadPath.resolve(file.getOriginalFilename());
+            filePath = emailsFilePath.toFile().getAbsolutePath();
+//            System.out.println("Path: " + emailsFilePath.toFile().getAbsolutePath());
+            Files.copy(inputStream, emailsFilePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new IOException("could not save");
         }
+        return filePath;
     }
 }

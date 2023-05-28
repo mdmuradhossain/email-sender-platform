@@ -1,8 +1,0 @@
-copy from outside in vim - Ctrl+Shift+c
-paste from outside in vim - Ctrl+Shift+v
-
-for visual mode - press v
-copy in vim - y
-cut in vim - d
-paste in vim - P
-undo - :u/:undo or press u

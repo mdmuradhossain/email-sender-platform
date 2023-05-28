@@ -1,7 +1,10 @@
 package io.murad.email_sender_platform.controller;
 
 import io.murad.email_sender_platform.model.EmailModel;
+import io.murad.email_sender_platform.service.EmailSenderService;
+import io.murad.email_sender_platform.utils.ReadFromFile;
 import io.murad.email_sender_platform.utils.UploadEmailFile;
+import jakarta.mail.MessagingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -22,6 +25,14 @@ import java.nio.file.StandardCopyOption;
 public class SendEmailController {
 
     private UploadEmailFile uploadEmailFile;
+    private EmailSenderService emailSenderService;
+    private ReadFromFile readFromFile;
+
+    public SendEmailController(UploadEmailFile uploadEmailFile, EmailSenderService emailService, ReadFromFile readFromFile) {
+        this.uploadEmailFile = uploadEmailFile;
+        this.emailSenderService = emailService;
+        this.readFromFile = readFromFile;
+    }
 
     @GetMapping("/sendEmail")
     public String sendEmailPage(Model model){
@@ -31,11 +42,13 @@ public class SendEmailController {
 
     @PostMapping("/send")
     public String sendEMail(@ModelAttribute("email") EmailModel email, @RequestParam("file") MultipartFile file, Model model)
-            throws IOException {
+            throws IOException, MessagingException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String subject = email.getSubject();
         String body = email.getBody();
-        uploadEmailFile.uploadFile(file);
+        String emailsFilePath = uploadEmailFile.uploadFile(file);
+        String[] emails = readFromFile.readEmailsFromCSV(emailsFilePath);
+        emailSenderService.sendEmail(emails,subject,body);
         model.addAttribute("subject",email.getSubject());
         return "success";
     }
