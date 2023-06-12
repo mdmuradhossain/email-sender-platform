@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 @Component
 public class UploadEmailFile {
-
     public String uploadFile(MultipartFile file) throws IOException {
         String filePath = "";
         Path uploadPath = Paths.get("uploads/");

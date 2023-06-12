@@ -14,8 +14,6 @@ public class EmailSenderPlatformApplication extends SpringBootServletInitializer
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(EmailSenderPlatformApplication.class, args);
-		ReadFromFile read = new ReadFromFile();
-		System.out.println(read.sendEmailsFromCSV("c:/Users/HP/Desktop/emails.csv"));
 	}
 
 }

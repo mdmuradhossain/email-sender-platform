@@ -1,9 +1,12 @@
 package io.murad.email_sender_platform.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+@Component
 public class ReadFromFile {
     public String[] readEmailsFromCSV(String csvFilePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(csvFilePath));

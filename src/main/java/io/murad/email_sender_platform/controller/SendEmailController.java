@@ -5,6 +5,7 @@ import io.murad.email_sender_platform.service.EmailSenderService;
 import io.murad.email_sender_platform.utils.ReadFromFile;
 import io.murad.email_sender_platform.utils.UploadEmailFile;
 import jakarta.mail.MessagingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -23,16 +24,18 @@ import java.nio.file.StandardCopyOption;
 
 @Controller
 public class SendEmailController {
-
+    @Autowired
     private UploadEmailFile uploadEmailFile;
+    @Autowired
     private EmailSenderService emailSenderService;
+    @Autowired
     private ReadFromFile readFromFile;
 
-    public SendEmailController(UploadEmailFile uploadEmailFile, EmailSenderService emailService, ReadFromFile readFromFile) {
-        this.uploadEmailFile = uploadEmailFile;
-        this.emailSenderService = emailService;
-        this.readFromFile = readFromFile;
-    }
+//    public SendEmailController(UploadEmailFile uploadEmailFile, EmailSenderService emailService, ReadFromFile readFromFile) {
+//        this.uploadEmailFile = uploadEmailFile;
+//        this.emailSenderService = emailService;
+//        this.readFromFile = readFromFile;
+//    }
 
     @GetMapping("/sendEmail")
     public String sendEmailPage(Model model){
