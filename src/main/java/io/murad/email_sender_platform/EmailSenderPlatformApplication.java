@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import java.io.IOException;
 
 @SpringBootApplication
-@ComponentScan("io.murad")
 public class EmailSenderPlatformApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) throws IOException {
