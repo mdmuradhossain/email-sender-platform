@@ -22,7 +22,7 @@ public class EmailSenderService {
         helper.setTo(recipient);
         helper.setSubject(subject);
         helper.setText(text, true);
-        helper.setFrom("");
+        helper.setFrom("mdmuradhossain28@gmail.com");
         javaMailSender.send(message);
     }
 }
