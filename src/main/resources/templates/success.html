@@ -5,6 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    <p th:text="${subject}">Success</p>
+<ul th:each="email : ${emails}">
+    <li th:text="${email}"></li>
+</ul>
 </body>
 </html>

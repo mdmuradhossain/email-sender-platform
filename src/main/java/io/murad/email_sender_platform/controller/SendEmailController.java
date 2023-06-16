@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
 @Controller
 public class SendEmailController {
@@ -51,8 +52,10 @@ public class SendEmailController {
         String body = email.getBody();
         String emailsFilePath = uploadEmailFile.uploadFile(file);
         String[] emails = readFromFile.readEmailsFromCSV(emailsFilePath);
-        emailSenderService.sendEmail(emails,subject,body);
+//        emailSenderService.sendEmail(emails,subject,body);
         model.addAttribute("subject",email.getSubject());
+        model.addAttribute("emails",emails);
+        System.out.println(Arrays.stream(emails).iterator().next());
         return "success";
     }
 }
