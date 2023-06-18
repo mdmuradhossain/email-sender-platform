@@ -22,6 +22,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class SendEmailController {
@@ -46,16 +47,18 @@ public class SendEmailController {
 
     @PostMapping("/send")
     public String sendEMail(@ModelAttribute("email") EmailModel email, @RequestParam("file") MultipartFile file, Model model)
-            throws IOException, MessagingException {
+            throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String subject = email.getSubject();
         String body = email.getBody();
         String emailsFilePath = uploadEmailFile.uploadFile(file);
-        String[] emails = readFromFile.readEmailsFromCSV(emailsFilePath);
+//        String[] emails = readFromFile.readEmailsFromCSV(emailsFilePath);
+        List<String[]> emails = readFromFile.readAllEmails(emailsFilePath);
 //        emailSenderService.sendEmail(emails,subject,body);
         model.addAttribute("subject",email.getSubject());
         model.addAttribute("emails",emails);
-        System.out.println(Arrays.stream(emails).iterator().next());
+
+        System.out.println(Arrays.stream(emails.toArray()).iterator().next());
         return "success";
     }
 }
