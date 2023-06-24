@@ -54,11 +54,14 @@ public class SendEmailController {
         String emailsFilePath = uploadEmailFile.uploadFile(file);
 //        String[] emails = readFromFile.readEmailsFromCSV(emailsFilePath);
         List<String[]> emails = readFromFile.readAllEmails(emailsFilePath);
+        String[] emailList = (String[]) emails.toArray();
 //        emailSenderService.sendEmail(emails,subject,body);
         model.addAttribute("subject",email.getSubject());
         model.addAttribute("emails",emails);
 
-        System.out.println(Arrays.stream(emails.toArray()).iterator().next());
+        Arrays.stream(emailList).forEach((mail)->{
+            System.out.println(email);
+        });
         return "success";
     }
 }
